@@ -1,0 +1,122 @@
+ScreenManager:
+    Screen:
+        name: "main"
+        AntennaControl:
+            id: antenna_control
+
+    Screen:
+        name: "config"
+        ConfigScreen:
+            id: config_screen
+
+<AntennaControl>:
+    orientation: "vertical"
+    padding: 20
+    spacing: 10
+
+    Label:
+        text: "Antenna Control System"
+        font_size: 24
+        size_hint_y: None
+        height: 40
+
+    Label:
+        text: root.status_message
+        size_hint_y: None
+        height: 40
+
+    Label:
+        text: f"Configured: Vertical={root.configured_vertical}, Horizontal={root.configured_horizontal}"
+        size_hint_y: None
+        height: 40
+
+    Label:
+        text: f"Current: Vertical={root.current_vertical}, Horizontal={root.current_horizontal}"
+        size_hint_y: None
+        height: 40
+
+    TextInput:
+        id: vertical_input
+        hint_text: "Vertical Alignment"
+        multiline: False
+        size_hint_y: None
+        height: 40
+
+    TextInput:
+        id: horizontal_input
+        hint_text: "Horizontal Alignment"
+        multiline: False
+        size_hint_y: None
+        height: 40
+
+    Button:
+        text: "Send Alignment"
+        size_hint_y: None
+        height: 50
+        on_release: root.send_alignment(vertical_input.text, horizontal_input.text)
+
+    Button:
+        text: "Generate Plot"
+        size_hint_y: None
+        height: 50
+        on_release: root.generate_plot()
+
+    Button:
+        text: "Reset to Configured"
+        size_hint_y: None
+        height: 50
+        on_release: root.reset_to_configured()
+
+    Button:
+        text: "Check Position"
+        size_hint_y: None
+        height: 50
+        on_release: root.check_position()
+
+    Label:
+        text: root.check_message
+        size_hint_y: None
+        height: 40
+
+    Button:
+        text: "Configuration"
+        size_hint_y: None
+        height: 50
+        on_release: app.root.current = "config"
+
+<ConfigScreen>:
+    orientation: "vertical"
+    padding: 20
+    spacing: 10
+
+    Label:
+        text: "Configuration Screen"
+        font_size: 24
+        size_hint_y: None
+        height: 40
+
+    TextInput:
+        id: vertical_input
+        hint_text: "Set Vertical Alignment"
+        multiline: False
+        size_hint_y: None
+        height: 40
+
+    TextInput:
+        id: horizontal_input
+        hint_text: "Set Horizontal Alignment"
+        multiline: False
+        size_hint_y: None
+        height: 40
+
+    Button:
+        text: "Confirm"
+        size_hint_y: None
+        height: 50
+        on_release: root.confirm_settings(vertical_input.text, horizontal_input.text)
+
+    Button:
+        text: "Back"
+        size_hint_y: None
+        height: 50
+        on_release: app.root.current = "main"
